@@ -6,8 +6,8 @@ public class App
 {
     public static void main( String[] args )
     {
-        IBookRepository repBook = new BookRepository();
-        IRepositoryUser repUser = new UserRepository();
+        IBookRepository repBook = BookRepository.BookRepositorySingleton();
+        IUserRepository repUser = new UserRepository();
         ILoanRepository repLoan = new LoanRepository();
         Book l1 = repBook.addNewBook("aa", "eu");
         User u1 = repUser.addUser("livia");
@@ -18,13 +18,14 @@ public class App
         System.out.println( u1 );
         System.out.println(repUser.findUser(u1.getId()));
 
-        Loan loan = repLoan.rent(u1,l1);
+        Loan loan = repLoan.loan(u1,l1);
         System.out.println(loan);
-        System.out.println(repLoan.listOpenRentByUser(u1.getId()));
+        System.out.println(repLoan.listOpenLoanByUserID(u1.getId()));
         System.out.println(repLoan.returnBook(l1.getId()));
-        System.out.println(repLoan.listOpenRentByUser(u1.getId()));
+        System.out.println(repLoan.listOpenLoanByUserID(u1.getId()));
         System.out.println(repLoan.listUserHistory(u1.getId()));
 
-
+        LibraryFacade facade = new LibraryFacade();
+        System.out.println(facade.searchBook(l1.getId()) == l1);
     }
 }

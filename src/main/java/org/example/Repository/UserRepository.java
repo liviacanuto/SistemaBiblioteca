@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserRepository implements IRepositoryUser
+public class UserRepository implements IUserRepository
 {
     private List<User> users = new ArrayList<>();
     private int id = 1;
