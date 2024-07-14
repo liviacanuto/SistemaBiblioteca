@@ -13,9 +13,19 @@ import java.util.stream.Collectors;
 public class LoanRepository implements ILoanRepository
 {
     private List<Loan> loans = new ArrayList<>();
+    private static LoanRepository singleton;
+
+    private LoanRepository(){}
+
+    public static LoanRepository loanRepositorySingleton() {
+        if(singleton == null) {
+            singleton = new LoanRepository();
+        }
+        return singleton;
+    }
 
     @Override
-    public Loan rent(User user, Book book)
+    public Loan loan(User user, Book book)
     {
         Loan loan = new Loan(user, book, new Date());
         loans.add(loan);
@@ -25,16 +35,16 @@ public class LoanRepository implements ILoanRepository
     @Override
     public Boolean returnBook(int bookID)
     {
-        Optional<Loan> al = loans.stream().filter(loan -> loan.getBook().getId() == bookID && loan.getReturnDate() == null).findFirst();
-        if(al.isPresent()) {
-            al.get().setReturnDate(new Date());
+        Loan loan = findOpenLoanByBookID(bookID);
+        if(loan != null) {
+            loan.setReturnDate(new Date());
             return true;
         }
         return false;
     }
 
     @Override
-    public List<Loan> listOpenRentByUser(int userID)
+    public List<Loan> listOpenLoanByUserID(int userID)
     {
         return loans.stream().filter(a -> a.getUser().getId() == userID && a.getReturnDate() == null).collect(Collectors.toList());
     }
@@ -43,5 +53,11 @@ public class LoanRepository implements ILoanRepository
     public List<Loan> listUserHistory(int userID)
     {
         return loans.stream().filter(loan -> loan.getUser().getId() == userID).collect(Collectors.toList());
+    }
+
+    @Override
+    public Loan findOpenLoanByBookID(int bookID)
+    {
+         return loans.stream().filter(loan -> loan.getBook().getId() == bookID && loan.getReturnDate() == null).findFirst().orElse(null);
     }
 }

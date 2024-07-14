@@ -9,7 +9,18 @@ import java.util.Optional;
 public class UserRepository implements IUserRepository
 {
     private List<User> users = new ArrayList<>();
+    private static UserRepository singleton;
     private int id = 1;
+
+    private UserRepository(){}
+
+    public static UserRepository userRepositorySingleton() {
+        if(singleton == null) {
+            singleton = new UserRepository();
+        }
+        return singleton;
+    }
+
 
     @Override
     public User findUser(int id)

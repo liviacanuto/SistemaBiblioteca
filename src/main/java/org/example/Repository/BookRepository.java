@@ -9,7 +9,18 @@ import java.util.Optional;
 public class BookRepository implements IBookRepository
 {
     private List<Book> books = new ArrayList<>();
+    private static BookRepository singleton;
     private int id = 1;
+
+    private BookRepository() {}
+
+    public static BookRepository bookRepositorySingleton()
+    {
+        if(singleton == null) {
+            singleton = new BookRepository();
+        }
+        return singleton;
+    }
 
     @Override
     public Book addNewBook(String titulo, String autor)
@@ -32,6 +43,17 @@ public class BookRepository implements IBookRepository
         Book book = this.searchById(id);
         if(book != null && book.isAvailable()) {
             book.setAvailable(false);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean returnBook(int id)
+    {
+        Book book = this.searchById(id);
+        if(book != null) {
+            book.setAvailable(true);
             return true;
         }
         return false;

@@ -6,9 +6,9 @@ public class App
 {
     public static void main( String[] args )
     {
-        IBookRepository repBook = BookRepository.BookRepositorySingleton();
-        IUserRepository repUser = new UserRepository();
-        ILoanRepository repLoan = new LoanRepository();
+        IBookRepository repBook = BookRepository.bookRepositorySingleton();
+        IUserRepository repUser = UserRepository.userRepositorySingleton();
+        ILoanRepository repLoan = LoanRepository.loanRepositorySingleton();
         Book l1 = repBook.addNewBook("aa", "eu");
         User u1 = repUser.addUser("livia");
         Book found = repBook.searchById(l1.getId());

@@ -7,5 +7,6 @@ public interface IBookRepository
     Book addNewBook(String titulo, String autor);
     Book searchById(int id);
     boolean borrowBook(int id);
+    boolean returnBook(int id);
 
 }
