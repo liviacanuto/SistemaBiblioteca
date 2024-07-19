@@ -4,11 +4,13 @@ public class User
 {
     private int id;
     private String name;
+    private int age;
 
-    public User(int id, String name)
+    public User(int id, String name, int age)
     {
         this.id = id;
         this.name = name;
+        this.age = age;
     }
 
     public String getName()
@@ -31,9 +33,19 @@ public class User
         this.id = id;
     }
 
+     public int getAge()
+    {
+        return age;
+    }
+
+    public void setAge(int age)
+    {
+        this.age = age;
+    }
+
     @Override
     public String toString()
     {
-        return "User{" + "id=" + id + ", name='" + name + '\'' + '}';
+        return "User{" + "id=" + id + ", name='" + name + ", age='" + age + '\'' + '}';
     }
 }
