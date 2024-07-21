@@ -1,7 +1,11 @@
+package org.example;
+
+import java.util.List;
+
 public interface LibraryFacade{
-    public Book searchBook();
-    public boolean borrowBook();
-    public List<Loan> userLoanHistory();
-    public List<Loan> userOpenLoansByUserID();
-    public boolean returnBook();
+    Book searchBook(int bookID);
+    boolean borrowBook(int bookID, int userID);
+    List<Loan> userLoanHistory(int userID);
+    List<Loan> userOpenLoansByUserID(int userID);
+    boolean returnBook(int bookID);
 }

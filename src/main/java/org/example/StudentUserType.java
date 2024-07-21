@@ -1,14 +1,17 @@
-public class StudentUserType extends User{
-    private int studentLoanLimit;
-    
-    public StudentUserType(int id, String name, int age, int loanLimit){
+package org.example;
+
+public class StudentUserType extends User {
+    public StudentUserType(int id, String name, int age) {
         super(id, name, age);
-        this.teacherLoanLimit = loanLimit;
     }
 
-     @Override
-    public String toString()
-    {
-        return "User{" + "id=" + id + ", name='" + name + ", age='" + age ", loanLimit='" + studentLoanLimit + '\'' + '}';
+    @Override
+    public int getLoanLimit() {
+        return ConfigurationManager.maxStudentLoanLimit;
+    }
+
+    @Override
+    public String toString() {
+        return "StudentUserType{" + "id=" + this.getId() + ", name='" + this.getName() + ", age='" + this.getAge() + ", loanLimit=" + this.getLoanLimit() + '\'' + '}';
     }
 }

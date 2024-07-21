@@ -1,6 +1,7 @@
 package org.example.Repository;
 
 import org.example.Book;
+import org.example.Category;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +24,9 @@ public class BookRepository implements IBookRepository
     }
 
     @Override
-    public Book addNewBook(String titulo, String autor)
+    public Book addNewBook(String titulo, String autor, Category category)
     {
-        Book book = new Book(id++, titulo, true, autor);
+        Book book = new Book(id++, titulo, true, autor, category);
         books.add(book);
         return book;
     }

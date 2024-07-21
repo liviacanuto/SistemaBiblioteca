@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.ApprovalHandler.ApprovalHandler;
+import org.example.ApprovalHandler.BookAvailabilityHandler;
 import org.example.Repository.*;
 
 public class App
@@ -9,23 +11,26 @@ public class App
         IBookRepository repBook = BookRepository.bookRepositorySingleton();
         IUserRepository repUser = UserRepository.userRepositorySingleton();
         ILoanRepository repLoan = LoanRepository.loanRepositorySingleton();
-        Book l1 = repBook.addNewBook("aa", "eu");
-        User u1 = repUser.addUser("livia");
-        Book found = repBook.searchById(l1.getId());
-        System.out.println( found );
-        System.out.println( repBook.borrowBook(l1.getId()));
-        System.out.println( repBook.borrowBook(l1.getId()));
-        System.out.println( u1 );
-        System.out.println(repUser.findUser(u1.getId()));
+        ApprovalHandler approvalHandler = new BookAvailabilityHandler();
 
-        Loan loan = repLoan.loan(u1,l1);
-        System.out.println(loan);
-        System.out.println(repLoan.listOpenLoanByUserID(u1.getId()));
-        System.out.println(repLoan.returnBook(l1.getId()));
-        System.out.println(repLoan.listOpenLoanByUserID(u1.getId()));
-        System.out.println(repLoan.listUserHistory(u1.getId()));
+        Category category = new Category("category");
+        Category c1 = new Category("c1");
+        Category c2 = new Category("c2");
 
-        LibraryFacade facade = new LibraryFacade();
-        System.out.println(facade.searchBook(l1.getId()) == l1);
+        c1.addCategory(c2);
+        category.addCategory(c1);
+
+        Book l1 = repBook.addNewBook("aa", "eu", category);
+        Book l2 = repBook.addNewBook("aa", "eu", category);
+        Book l3 = repBook.addNewBook("aa", "eu", category);
+        Book l4 = repBook.addNewBook("aa", "eu", category);
+
+        repUser.addStudent("momo", 10);
+
+        System.out.println((approvalHandler.checkAvailability(1,1)));
+        repLoan.loan(repUser.findUser(1), repBook.searchById(1));
+        repLoan.loan(repUser.findUser(1), repBook.searchById(2));
+        repLoan.loan(repUser.findUser(1), repBook.searchById(3));
+        System.out.println((approvalHandler.checkAvailability(1,4)));
     }
 }
