@@ -23,6 +23,14 @@ public class Category extends BookCategory {
     }
 
     @Override
+    public String toString() {
+        if(categories.isEmpty()) {
+            return getCategoryName();
+        }
+        return this.getCategoryName() + " " + categories;
+    }
+
+    @Override
     public boolean isCategory(String category) {
         if(category.equalsIgnoreCase(this.getCategoryName())) {
             return true;

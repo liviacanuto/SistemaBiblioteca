@@ -12,6 +12,7 @@ public class BookAvailabilityHandler extends ApprovalHandler {
     public boolean checkAvailability(int userID, int bookID) {
         Book book = bookRep.searchById(bookID);
         if(book == null || !book.isAvailable()) {
+            System.out.println("O livro '" + book.getTitle() +"'está INDISPONÍVEL");
             return false;
         }
         return next.checkAvailability(userID, bookID);

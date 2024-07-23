@@ -8,4 +8,5 @@ public interface LibraryFacade{
     List<Loan> userLoanHistory(int userID);
     List<Loan> userOpenLoansByUserID(int userID);
     boolean returnBook(int bookID);
+    User findUser(int userID);
 }

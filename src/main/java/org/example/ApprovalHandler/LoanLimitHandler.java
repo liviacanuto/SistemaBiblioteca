@@ -13,7 +13,10 @@ public class LoanLimitHandler extends ApprovalHandler {
     public boolean checkAvailability(int userID, int bookID) {
         List<Loan> loans = repLoan.listOpenLoanByUserID(userID);
         boolean isEmpty = loans.isEmpty();
-        boolean atingiuLimite = !isEmpty && loans.get(0).getUser().getLoanLimit() >= loans.size();
+        boolean atingiuLimite = !isEmpty && loans.get(0).getUser().getLoanLimit() <= loans.size();
+        if(atingiuLimite) {
+            System.out.println("O usuário passou do limite de alugueis!");
+        }
         return !atingiuLimite;
     }
 }

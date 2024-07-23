@@ -11,6 +11,7 @@ public class LibraryMediator implements LibraryFacade
     private IUserRepository userRepository = UserRepository.userRepositorySingleton();
     private ILoanRepository loanRepository = LoanRepository.loanRepositorySingleton();
     private IBookRepository bookRepository = BookRepository.bookRepositorySingleton();
+    private BookAvailabilityNotifier notifier = ConfigurationManager.notifier;
     ApprovalHandler approvalHandler = new BookAvailabilityHandler();
 
     @Override
@@ -26,6 +27,7 @@ public class LibraryMediator implements LibraryFacade
         if(canRent) {
             bookRepository.borrowBook(bookID);
             loanRepository.loan(user, book);
+            System.out.println("Livro '"+book.getTitle()+"' foi emprestado para '"+user.getName()+"' !");
             return true;
         }
         return false;
@@ -47,9 +49,14 @@ public class LibraryMediator implements LibraryFacade
         if(loan != null) {
             bookRepository.returnBook(bookID);
             loanRepository.returnBook(bookID);
+            notifier.notifyBookAvailable(loan.getBook());
             return true;
         }
         return false;
     }
 
+    @Override
+    public User findUser(int userID) {
+        return userRepository.findUser(userID);
+    }
 }

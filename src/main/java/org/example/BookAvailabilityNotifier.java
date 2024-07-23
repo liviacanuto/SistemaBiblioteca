@@ -18,8 +18,8 @@ public class BookAvailabilityNotifier {
         subscribers.remove(user);
     }
 
-    public void notifyNewBookAdded(Book book) {
-        String message = "Novo livro adicionado ao catálogo: " + book.getTitle();
+    public void notifyBookAvailable(Book book) {
+        String message = "Livro '" + book.getTitle() + "' devolvido! " ;
         sendNotification(message);
     }
 

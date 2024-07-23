@@ -11,7 +11,7 @@ public class BookRepository implements IBookRepository
 {
     private List<Book> books = new ArrayList<>();
     private static BookRepository singleton;
-    private int id = 1;
+    private int id = 1000;
 
     private BookRepository() {}
 
@@ -60,4 +60,14 @@ public class BookRepository implements IBookRepository
         return false;
     }
 
+    @Override
+    public Book addNewBook(Book book) {
+        books.add(book);
+        return book;
+    }
+
+    @Override
+    public List<Book> findAll() {
+        return books;
+    }
 }

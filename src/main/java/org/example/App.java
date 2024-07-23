@@ -1,36 +1,24 @@
 package org.example;
 
-import org.example.ApprovalHandler.ApprovalHandler;
-import org.example.ApprovalHandler.BookAvailabilityHandler;
-import org.example.Repository.*;
+public class App {
+    public static void main(String[] args) {
+        CenarioManager.popularBanco();
+        LibraryFacade mediator = new LibraryMediator();
 
-public class App
-{
-    public static void main( String[] args )
-    {
-        IBookRepository repBook = BookRepository.bookRepositorySingleton();
-        IUserRepository repUser = UserRepository.userRepositorySingleton();
-        ILoanRepository repLoan = LoanRepository.loanRepositorySingleton();
-        ApprovalHandler approvalHandler = new BookAvailabilityHandler();
+        System.out.println("******INICIO DOS TESTES*******");
+        System.out.println("\n****** EMPRÉSTIMO DE LIVRO *******");
+        mediator.borrowBook(1004,1);
+        mediator.borrowBook(1001,2);
+        mediator.borrowBook(1005,3);
+        mediator.borrowBook(1005,4);
 
-        Category category = new Category("category");
-        Category c1 = new Category("c1");
-        Category c2 = new Category("c2");
+        System.out.println("\n******DEVOLVER LIVROS*******");
+        mediator.returnBook(1001);
 
-        c1.addCategory(c2);
-        category.addCategory(c1);
+        System.out.println("\n******ENCONTRAR LIVROS + DETALHES*******");
+        System.out.println(mediator.searchBook(1001));
 
-        Book l1 = repBook.addNewBook("aa", "eu", category);
-        Book l2 = repBook.addNewBook("aa", "eu", category);
-        Book l3 = repBook.addNewBook("aa", "eu", category);
-        Book l4 = repBook.addNewBook("aa", "eu", category);
-
-        repUser.addStudent("momo", 10);
-
-        System.out.println((approvalHandler.checkAvailability(1,1)));
-        repLoan.loan(repUser.findUser(1), repBook.searchById(1));
-        repLoan.loan(repUser.findUser(1), repBook.searchById(2));
-        repLoan.loan(repUser.findUser(1), repBook.searchById(3));
-        System.out.println((approvalHandler.checkAvailability(1,4)));
+        System.out.println("\n******ENCONTRAR USUARIOS + HISTÓRICO DE EMPRÉSTIMO*******");
+        System.out.println(mediator.userLoanHistory(1));
     }
 }

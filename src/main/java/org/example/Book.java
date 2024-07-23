@@ -23,12 +23,16 @@ public class Book extends BookCategory {
         return false;
     }
 
-    public Book(int id, String title, boolean available, String author, Category category) {
-        this.id = id;
+    public Book(String title, boolean available, String author, Category category) {
         this.title = title;
         this.available = available;
         this.author = author;
         this.category = category;
+    }
+
+    public Book(int id, String title, boolean available, String author, Category category) {
+        this(title, available, author, category);
+        this.id = id;
     }
 
     public int getId() {
@@ -48,7 +52,7 @@ public class Book extends BookCategory {
     }
 
     public String getAuthor() {
-        return author;
+        return this.author;
     }
 
     public void setAuthor(String author) {
@@ -56,7 +60,7 @@ public class Book extends BookCategory {
     }
 
     public boolean isAvailable() {
-        return available;
+        return this.available;
     }
 
     public void setAvailable(boolean available) {
@@ -65,6 +69,6 @@ public class Book extends BookCategory {
 
     @Override
     public String toString() {
-        return "Book{" + "id=" + id + ", title='" + title + '\'' + ", author='" + author + '\'' + ", available=" + available + '}';
+        return "Book{" + "\nid=" + id + ", \ntitle='" + title + '\'' + ", \nauthor='" + author + '\'' + ", \navailable=" + available +", \nCategory=" + category + "\n}";
     }
 }

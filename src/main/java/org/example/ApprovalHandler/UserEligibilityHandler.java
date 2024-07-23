@@ -14,6 +14,7 @@ public class UserEligibilityHandler extends ApprovalHandler {
     public boolean checkAvailability(int userID, int bookID) {
         User user = userRep.findUser(userID);
         if(user == null || user.getAge() < 10) {
+            System.out.println("O usuário é menor de 10 anos!");
             return false;
         }
         return next.checkAvailability(userID, bookID);
