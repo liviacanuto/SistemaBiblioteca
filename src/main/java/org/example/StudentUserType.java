@@ -3,7 +3,7 @@ public class StudentUserType extends User{
     
     public StudentUserType(int id, String name, int age, int loanLimit){
         super(id, name, age);
-        this.teacherLoanLimit = loanLimit;
+        this.studentLoanLimit = loanLimit;
     }
 
      @Override
