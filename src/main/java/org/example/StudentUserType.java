@@ -3,7 +3,6 @@ package org.example;
 public class StudentUserType extends User {
     public StudentUserType(int id, String name, int age) {
         super(id, name, age);
-        this.studentLoanLimit = loanLimit;
     }
 
     @Override
