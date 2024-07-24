@@ -59,6 +59,6 @@ public class Loan
     @Override
     public String toString()
     {
-        return "Loan{" + "user=" + user + ", book=" + book + ", loanDate=" + loanDate + ", returnDate=" + returnDate + '}';
+        return "\n\nLoan{" + "\nuser=" + user + ", \nbook=" + book + ", \nloanDate=" + loanDate + ", \nreturnDate=" + returnDate + "\n}";
     }
 }

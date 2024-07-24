@@ -1,31 +1,31 @@
 package org.example;
 
-import org.example.Repository.*;
+import org.example.ExternalBook.BookAdapter;
+import org.example.ExternalBook.ExternalBookAdapter;
 
-public class App
-{
-    public static void main( String[] args )
-    {
-        IBookRepository repBook = BookRepository.bookRepositorySingleton();
-        IUserRepository repUser = UserRepository.userRepositorySingleton();
-        ILoanRepository repLoan = LoanRepository.loanRepositorySingleton();
-        Book l1 = repBook.addNewBook("aa", "eu");
-        User u1 = repUser.addUser("livia");
-        Book found = repBook.searchById(l1.getId());
-        System.out.println( found );
-        System.out.println( repBook.borrowBook(l1.getId()));
-        System.out.println( repBook.borrowBook(l1.getId()));
-        System.out.println( u1 );
-        System.out.println(repUser.findUser(u1.getId()));
+public class App {
+    public static void main(String[] args) {
+        CenarioManager.popularBanco();
+        LibraryFacade mediator = new LibraryMediator();
+        BookAdapter ex1 = new ExternalBookAdapter(3, "Livro externo", true,"Autor", new Category("Externo"));
 
-        Loan loan = repLoan.loan(u1,l1);
-        System.out.println(loan);
-        System.out.println(repLoan.listOpenLoanByUserID(u1.getId()));
-        System.out.println(repLoan.returnBook(l1.getId()));
-        System.out.println(repLoan.listOpenLoanByUserID(u1.getId()));
-        System.out.println(repLoan.listUserHistory(u1.getId()));
+        System.out.println("******INICIO DOS TESTES*******");
+        System.out.println("\n****** EMPRÉSTIMO DE LIVRO *******");
+        mediator.borrowBook(1004,1);
+        mediator.borrowBook(1001,2);
+        mediator.borrowBook(1005,3);
+        mediator.borrowBook(1005,4);
 
-        LibraryFacade facade = new LibraryFacade();
-        System.out.println(facade.searchBook(l1.getId()) == l1);
+        System.out.println("\n******DEVOLVER LIVROS*******");
+        mediator.returnBook(1001);
+
+        System.out.println("\n******ENCONTRAR LIVROS + DETALHES*******");
+        System.out.println(mediator.searchBook(1001));
+
+        System.out.println("\n******VERIFICAR SE LIVRO EXTERNO POSSUI UMA CATEGORIA ESPECIFICA*******");
+        System.out.println(ex1.temCategoria("Externo"));
+
+        System.out.println("\n******ENCONTRAR USUARIOS + HISTÓRICO DE EMPRÉSTIMO*******");
+        System.out.println(mediator.userLoanHistory(1));
     }
 }

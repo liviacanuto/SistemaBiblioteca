@@ -1,63 +1,74 @@
 package org.example;
 
-public class Book
-{
+import java.util.List;
+
+public class Book extends BookCategory {
     private int id;
     private String title;
-    private String author;
     private boolean available;
+    private String author;
+    Category category;
 
-    public Book(int id, String title, boolean disponibilidade, String author)
-    {
-        this.id = id;
-        this.title = title;
-        this.available = disponibilidade;
-        this.author = author;
+    @Override
+    public boolean isCategory(String category) {
+        if(category.equalsIgnoreCase(this.category.getCategoryName())) {
+            return true;
+        }
+        List<BookCategory> categories = this.category.getCategories();
+        for(BookCategory c : categories) {
+            if(c.isCategory(category)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public int getId()
-    {
+    public Book(String title, boolean available, String author, Category category) {
+        this.title = title;
+        this.available = available;
+        this.author = author;
+        this.category = category;
+    }
+
+    public Book(int id, String title, boolean available, String author, Category category) {
+        this(title, available, author, category);
+        this.id = id;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(int id)
-    {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getTitle()
-    {
+    public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title)
-    {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getAuthor()
-    {
-        return author;
+    public String getAuthor() {
+        return this.author;
     }
 
-    public void setAuthor(String author)
-    {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
-    public boolean isAvailable()
-    {
-        return available;
+    public boolean isAvailable() {
+        return this.available;
     }
 
-    public void setAvailable(boolean available)
-    {
+    public void setAvailable(boolean available) {
         this.available = available;
     }
 
     @Override
-    public String toString()
-    {
-        return "Book{" + "id=" + id + ", title='" + title + '\'' + ", author='" + author + '\'' + ", available=" + available + '}';
+    public String toString() {
+        return "Book{" + "\nid=" + id + ", \ntitle='" + title + '\'' + ", \nauthor='" + author + '\'' + ", \navailable=" + available +", \nCategory=" + category + "\n}";
     }
 }

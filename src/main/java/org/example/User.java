@@ -1,6 +1,6 @@
 package org.example;
 
-public class User
+public abstract class User
 {
     private int id;
     private String name;
@@ -12,6 +12,8 @@ public class User
         this.name = name;
         this.age = age;
     }
+
+    public abstract int getLoanLimit();
 
     public String getName()
     {

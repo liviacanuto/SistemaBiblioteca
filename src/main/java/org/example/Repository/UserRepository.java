@@ -1,5 +1,7 @@
 package org.example.Repository;
 
+import org.example.StudentUserType;
+import org.example.TeacherUserType;
 import org.example.User;
 
 import java.util.ArrayList;
@@ -30,9 +32,24 @@ public class UserRepository implements IUserRepository
     }
 
     @Override
-    public User addUser(String nome)
+    public User addStudent(String name, int age) {
+        User student = new StudentUserType(id++, name, age);
+        return addUser(student);
+    }
+
+    @Override
+    public User addTeacher(String name, int age) {
+        User teacher = new TeacherUserType(id++, name, age);
+        return addUser(teacher);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return users;
+    }
+
+    private User addUser(User user)
     {
-        User user = new User(id++, nome);
         users.add(user);
         return user;
     }
